@@ -54,7 +54,7 @@ class Budget(db.Model):
     category: so.Mapped[str] = so.mapped_column(sa.String(255))
     asigned: so.Mapped[float] = so.mapped_column(sa.Float)
     activity: so.Mapped[float] = so.mapped_column(sa.Float)
-    available: so.Mapped[Optional[float]] = so.mapped_column(sa.Float, nullable=False)
+    available: so.Mapped[Optional[float]] = so.mapped_column(sa.Float, default=0.0 ,nullable=False)
     timestamp: so.Mapped[datetime] = so.mapped_column(
         index=True, default=lambda: datetime.utcnow())
     user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id), index=True)

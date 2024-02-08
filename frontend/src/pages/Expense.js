@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
+import './../components/index.css';
 
 
 const baseurl = "http://localhost:5000";
@@ -116,7 +116,7 @@ function Expense() {
             />
           </div>
           <div>
-            <button type='submit' className="btn btn-primary">{editingExpenseId ? 'Update' : 'Submit'}</button>
+            <button type='submit' className="btn btn-primary">{editingExpenseId ? 'Update' : '+ Add Expense'}</button>
             {editingExpenseId && (
               <button type='button' className="btn btn-secondary ms-2" onClick={handleCancelEdit}>Cancel Edit</button>
             )}

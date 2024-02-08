@@ -30,3 +30,11 @@
   .Sidebar a:visited {
     color: #444;
   }
+
+  .Sidebar .nav.active {
+    background-color: blue;
+  }
+  .InputField {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }

@@ -11,4 +11,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-from app import models, expense_routes, income_routes, budget_routes
+from app import models, expense_routes, income_routes, budget_routes, auth_routes

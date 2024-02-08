@@ -8,15 +8,15 @@ from app.models import User, Budget, format_budget
 def create_budget():
     """Create a new budget"""
     try:
-        category = request.json['category']
-        asigned = request.json['asigned']
-        activity = request.json['activity']
-        user_id = request.json['author']
+        data = request.json
+        category = data.get("category")
+        asigned = data.get("asigned")
+        activity = data.get("activity")
+        user_id = data.get("user_id")
         
-        available = asigned - activity
+        calc_available = asigned - activity
 
-        user = db.session.query(User).filter(User.id == user_id).first()
-        budget = Budget(category=category, asigned=asigned, activity=activity, available=available, author=user)
+        budget = Budget(category=category, asigned=asigned, activity=activity, available=calc_available, user_id=user_id)
 
         db.session.add(budget)
         db.session.commit()

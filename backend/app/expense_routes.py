@@ -2,7 +2,7 @@ from flask import request, jsonify
 import sqlalchemy as sa
 from app import app, db
 
-from app.models import User, Expense, Income
+from app.models import User, Expense
 
 
 @app.route('/')
@@ -14,13 +14,13 @@ def index():
 def create_expense():
     """Create an expense"""
     try:
-        description = request.json["description"]
-        amount = request.json["amount"]
-        user_id = request.json["author"]
+        data = request.json
+        description = data.get("description")
+        amount = data.get("amount")
+        user_id = data.get("user_id")
 
-        user  = db.session.query(User).filter(User.id == user_id).first()
         
-        expense = Expense(description=description, amount=amount, author=user)
+        expense = Expense(description=description, amount=amount, user_id=user_id)
         db.session.add(expense)
         db.session.commit()
 

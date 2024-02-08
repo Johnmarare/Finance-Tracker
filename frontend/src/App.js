@@ -1,37 +1,42 @@
-// components/App.js
+// App.js
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import Expenses from './components/Expense'; // Import your Expenses component
-import Income from './components/Income'; // Import your Income component
-
-const baseurl = "http://localhost:5000";
+import Expense from './pages/Expense';
+import Income from './pages/Income';
+import Budget from './pages/Budget';
+import Signup from './pages/Signup';
+import LoginPage from './pages/LoginPage';
+import UserPage from './pages/UserPage'
 
 const App = () => {
-  const [currentSection, setCurrentSection] = useState('expenses');
-
   return (
-    <div className='App'>
-      <Header />
-      <Container fluid>
-        <div className="d-flex">
-          <Sidebar />
-          <main className="p-4">
-            {/* Use tabs, buttons, or other navigation elements to switch between sections */}
-            {/* For simplicity, I'm using buttons for demonstration purposes */}
-            <button onClick={() => setCurrentSection('expenses')}>Expenses</button>
-            <button onClick={() => setCurrentSection('income')}>Income</button>
-
-            {/* Render the appropriate component based on the current section */}
-            {currentSection === 'expenses' && <Expenses />}
-            {currentSection === 'income' && <Income />}
-          </main>
-        </div>
+    <Router>
+      <Container fluid className='App'>
+        <Header />
+        <Container fluid>
+          <div className="d-flex">
+            <Sidebar />
+            <main className="p-4">
+              <Routes>
+                <Route path="/" element={<Expense />} />
+                <Route path="/expense" element={<Expense />} />
+                <Route path="/income" element={<Income />} />
+                <Route path="/budget" element={<Budget />} />
+                <Route path='user/:username' element={<UserPage />} />
+                <Route path='login' element={<LoginPage />} />
+                <Route path='signup' element={<Signup />}/>
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </main>
+          </div>
+        </Container>
       </Container>
-    </div>
+    </Router>
   );
 };
 

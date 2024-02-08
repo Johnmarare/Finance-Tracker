@@ -10,13 +10,12 @@ from app.models import User, Income
 def create_income():
     """Create an income"""
     try:
-        description = request.json["description"]
-        amount = request.json["amount"]
-        user_id = request.json["author"]
-
-        user  = db.session.query(User).filter(User.id == user_id).first()
+        data = request.json
+        description = data.get("description")
+        amount = data.get("description")
+        user_id = data.get("user_id")
         
-        income = Income(description=description, amount=amount, author=user)
+        income = Income(description=description, amount=amount, user_id=user_id)
         db.session.add(income)
         db.session.commit()
 
