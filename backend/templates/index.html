@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username }} - {{ user.email }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>High Expenses</h1>
+    <ul>
+        {% for expense in high_expenses %}
+            <li>{{ expense.description }} - ${{ expense.amount }}</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Travel Budgets</h1>
+    <ul>
+        {% for budget in travel_budgets %}
+            <li>{{ budget.category }} - ${{ budget.limit }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
