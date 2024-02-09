@@ -7,6 +7,7 @@ export default function UserPage() {
   return (
     <Body sidebar>
       <h1>{username}</h1>
+      <p>Expense</p>
     </Body>
   );
 }

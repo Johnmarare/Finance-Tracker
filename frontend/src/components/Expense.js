@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useCallback } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './../components/index.css';
+import { useApi } from "../contexts/ApiProvider";
 
-
-const baseurl = "http://localhost:5000";
-
-function Expense() {
+const Expense = () => {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
   const [editingExpenseId, setEditingExpenseId] = useState(null);
   const [expenseList, setExpenseList] = useState([]);
+  const api = useApi();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,29 +18,29 @@ function Expense() {
     }
   };
 
-  const fetchExpenses = async () => {
+  const fetchExpenses = useCallback(async () => {
     try {
-      const response = await axios.get(`${baseurl}/expense`);
-      const { expenses } = response.data;
+      const response = await api.get('/expense');
+      const { expenses } = response.body;
       setExpenseList(expenses);
     } catch (error) {
       console.error("Error fetching expenses:", error);
     }
-  };
+  }, [api]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editingExpenseId) {
         // Update existing expense
-        await axios.put(`${baseurl}/expense/${editingExpenseId}`, {
+        await api.put(`/expense/${editingExpenseId}`, {
           description,
           amount: parseFloat(amount),
         });
         setEditingExpenseId(null);
       } else {
         // Create new expense
-        await axios.post(`${baseurl}/expense`, {
+        await api.post('/expense', {
           description,
           amount: parseFloat(amount),
         });
@@ -61,7 +58,7 @@ function Expense() {
 
   const handleUpdate = async (id) => {
     try {
-      const response = await axios.get(`${baseurl}/expense/${id}`);
+      const response = await api.get(`/expense/${id}`);
       const { expense } = response.data;
       setDescription(expense.description);
       setAmount(expense.amount);
@@ -73,7 +70,7 @@ function Expense() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${baseurl}/expense/${id}`);
+      await api.delete(`/expense/${id}`);
       const updatedList = expenseList.filter((expense) => expense.id !== id);
       setExpenseList(updatedList);
     } catch (err) {
@@ -89,7 +86,7 @@ function Expense() {
 
   useEffect(() => {
     fetchExpenses();
-  }, []);
+  }, [fetchExpenses]);
 
   return (
     <div className="container-fluid">
@@ -141,6 +138,6 @@ function Expense() {
       </div>
     </div>
   );
-}
+};
 
 export default Expense;

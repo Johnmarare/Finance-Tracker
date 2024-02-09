@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import { NavLink } from 'react-router-dom';
 
-function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggleSidebar = () => {
-    setCollapsed(!collapsed);
-  };
-
+export default function Sidebar() {
   return (
-    <Navbar sticky="top" className={`flex-column Sidebar ${collapsed ? 'collapsed' : ''}`}>
-      <Navbar.Toggle onClick={toggleSidebar} aria-controls="sidebar-nav" />
-      <Navbar.Collapse id="sidebar-nav">
-        <Nav className="flex-column">
-          <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-          <Nav.Link href="/expense">Expenses</Nav.Link>
-          <Nav.Link href="/income">Incomes</Nav.Link>
-          <Nav.Link href="/budget">Budget</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
+    <Navbar sticky="top" className="flex-column Sidebar">
+      <Nav.Item>
+        <Nav.Link as={NavLink} to="/" end>Dashboard</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link as={NavLink} to="/expense">Expense</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link as={NavLink} to="/income">Income</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link as={NavLink} to="/budget">Budget</Nav.Link>
+      </Nav.Item>
     </Navbar>
   );
 }
-
-export default Sidebar;

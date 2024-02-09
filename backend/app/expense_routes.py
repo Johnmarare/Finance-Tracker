@@ -10,7 +10,7 @@ from app.models import User, Expense
 def index():
     return "Hello world"
 
-@app.route('/expense', methods= ['POST'])
+@app.route('/api/expense', methods= ['POST'])
 def create_expense():
     """Create an expense"""
     try:
@@ -29,7 +29,7 @@ def create_expense():
         print(f"Error creating expense: {e}")
         return jsonify({"error": "Error creating expense"})
 
-@app.route('/expense', methods=['GET'])
+@app.route('/api/expense', methods=['GET'])
 def get_expense():
     """get expense for user"""
     try:
@@ -41,7 +41,7 @@ def get_expense():
         print (f"Error getting expenses: {e}")
         return jsonify({"error": "Error getting expenses"})
     
-@app.route('/expense/<int:expense_id>', methods=['GET'])
+@app.route('/api/expense/<int:expense_id>', methods=['GET'])
 def get_exp(expense_id):
     """retrieve expense uniquely by ID"""
     try:
@@ -56,7 +56,7 @@ def get_exp(expense_id):
     except Exception as e:
         print(f"Error getting expense: {e}")
         return jsonify({"error": "Error getting expense"}) 
-@app.route('/expense/<int:expense_id>', methods=['DELETE'])
+@app.route('/api/expense/<int:expense_id>', methods=['DELETE'])
 def delete_expense(expense_id):
     """Deletes a specific expense"""
     try:
@@ -74,7 +74,7 @@ def delete_expense(expense_id):
         return jsonify({"error": f"Error deleting expense: {str(e)}"})
 
 
-@app.route('/expense/<int:expense_id>', methods=['PUT'])
+@app.route('/api/expense/<int:expense_id>', methods=['PUT'])
 def update_expense(expense_id):
     """Update the expense table by ID"""
     try:

@@ -1,43 +1,30 @@
-// App.js
-
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import ApiProvider from './contexts/ApiProvider';
 import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import Expense from './pages/Expense';
-import Income from './pages/Income';
-import Budget from './pages/Budget';
-import Signup from './pages/Signup';
+import ExpensePage from './pages/ExpensePage';
+import IncomePage from './pages/IncomePage';
+import BudgetPage from './pages/BudgetPage';
+import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
-import UserPage from './pages/UserPage'
 
-const App = () => {
+export default function App() {
   return (
-    <Router>
-      <Container fluid className='App'>
-        <Header />
-        <Container fluid>
-          <div className="d-flex">
-            <Sidebar />
-            <main className="p-4">
-              <Routes>
-                <Route path="/" element={<Expense />} />
-                <Route path="/expense" element={<Expense />} />
-                <Route path="/income" element={<Income />} />
-                <Route path="/budget" element={<Budget />} />
-                <Route path='user/:username' element={<UserPage />} />
-                <Route path='login' element={<LoginPage />} />
-                <Route path='signup' element={<Signup />}/>
-                <Route path="*" element={<Navigate to="/" />} />
-              </Routes>
-            </main>
-          </div>
-        </Container>
-      </Container>
-    </Router>
+    <Container fluid className="App">
+      <BrowserRouter>
+        <ApiProvider>
+          <Header />
+          <Routes>
+            <Route path="/" element={<ExpensePage />} />
+            <Route path="/expense" element={<ExpensePage />} />
+            <Route path="/income" element={<IncomePage />} />
+            <Route path="/budget" element={<BudgetPage />} />
+            <Route path="/user/:username" element={<UserPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </ApiProvider>
+      </BrowserRouter>
+    </Container>
   );
-};
-
-export default App;
+}
