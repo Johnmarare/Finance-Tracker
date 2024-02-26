@@ -1,11 +1,10 @@
 import Body from '../components/Body';
+import Budget from '../components/Budget';
 
 export default function BudgetPage() {
   return (
     <Body sidebar>
-      <h1>Budget</h1>
-      <p>food</p>
-      <p>1000/=</p>
+      <Budget />
     </Body>
   );
 }

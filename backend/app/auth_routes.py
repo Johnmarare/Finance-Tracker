@@ -5,7 +5,7 @@ import sqlalchemy as sa
 from app import app, db
 from app.models import User
 
-@app.route("/signup", methods=["POST"])
+@app.route("/api/signup", methods=["POST"])
 def signup():
     """creates a user"""
     data = request.json
@@ -13,7 +13,7 @@ def signup():
     email = data.get("email")
     password = data.get("password")
 
-    hashed_password = generate_password_hash(password, method="sha256")
+    hashed_password = generate_password_hash(password, method="pbkdf2:sha256")
 
     new_user = User(username=username, email=email, password_hash=hashed_password)
     db.session.add(new_user)
@@ -22,17 +22,17 @@ def signup():
     return jsonify({"message": "User created succesfully"})
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/api/login", methods=["POST"])
 def login():
     """login for user"""
     data = request.json
-    email = data.get("email")
+    username = data.get("username")
     pasword = data.get("password")
 
-    user = User.query.filter_by(email=email).first()
+    user = User.query.filter_by(username=username).first()
 
     if user and check_password_hash(user.password_hash, pasword):
         return jsonify({"message": "Login succesful"})
     else:
-        return jsonify({"message": "Invalid email or password"}), 401
+        return jsonify({"message": "Invalid credentials! check username or password."}), 401
     

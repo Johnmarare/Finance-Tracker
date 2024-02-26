@@ -4,7 +4,7 @@ from app import app, db
 
 from app.models import User, Budget, format_budget
 
-@app.route('/budget', methods=['POST'])
+@app.route('/api/budget', methods=['POST'])
 def create_budget():
     """Create a new budget"""
     try:
@@ -27,7 +27,7 @@ def create_budget():
         db.session.rollback()
         return jsonify({"error": f"Error creating budget: {str(e)}"}), 500
     
-@app.route('/budget', methods=['GET'])
+@app.route('/api/budget', methods=['GET'])
 def get_budget():
     """Get all budget"""
     try:
@@ -39,7 +39,7 @@ def get_budget():
         return jsonify({"error": f"Error retrieving budgets: {str(e)}"})
 
 
-@app.route('/budget/<int:budget_id>', methods=['GET'])
+@app.route('/api/budget/<int:budget_id>', methods=['GET'])
 def get_budget_by_id(budget_id):
     """Get a specific budget by ID"""
     try:
@@ -55,7 +55,7 @@ def get_budget_by_id(budget_id):
 
 
 
-@app.route('/budget/<int:budget_id>', methods=['PUT'])
+@app.route('/api/budget/<int:budget_id>', methods=['PUT'])
 def update_budget(budget_id):
     """Update a budget"""
     try:
@@ -83,7 +83,7 @@ def update_budget(budget_id):
         return jsonify({"error": f"Error updating budget: {str(e)}"}), 500
 
 
-@app.route('/budget/<int:budget_id>', methods=['DELETE'])
+@app.route('/api/budget/<int:budget_id>', methods=['DELETE'])
 def delete_budget(budget_id):
     try:
         budget = Budget.query.get(budget_id)

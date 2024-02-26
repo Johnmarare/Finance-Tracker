@@ -6,7 +6,7 @@ from app.models import User, Income
 
 
 
-@app.route('/income', methods= ['POST'])
+@app.route('/api/income', methods= ['POST'])
 def create_income():
     """Create an income"""
     try:
@@ -24,7 +24,7 @@ def create_income():
         print(f"Error creating income: {e}")
         return jsonify({"error": "Error creating income"})
 
-@app.route('/income', methods=['GET'])
+@app.route('/api/income', methods=['GET'])
 def get_income():
     """get income for user"""
     try:
@@ -36,7 +36,7 @@ def get_income():
         print (f"Error getting incomes: {e}")
         return jsonify({"error": "Error getting incomes"})
     
-@app.route('/income/<int:income_id>', methods=['GET'])
+@app.route('/api/income/<int:income_id>', methods=['GET'])
 def get_income_by_id(income_id):
     """retrieve income uniquely by ID"""
     try:
@@ -51,7 +51,7 @@ def get_income_by_id(income_id):
     except Exception as e:
         print(f"Error getting income: {e}")
         return jsonify({"error": "Error getting income"}) 
-@app.route('/income/<int:income_id>', methods=['DELETE'])
+@app.route('/api/income/<int:income_id>', methods=['DELETE'])
 def delete_income(income_id):
     """Deletes a specific income"""
     try:
@@ -69,7 +69,7 @@ def delete_income(income_id):
         return jsonify({"error": f"Error deleting income: {str(e)}"})
 
 
-@app.route('/income/<int:income_id>', methods=['PUT'])
+@app.route('/api/income/<int:income_id>', methods=['PUT'])
 def update_income(income_id):
     """Update the income table by ID"""
     try:

@@ -125,7 +125,7 @@ const Expense = () => {
       <div>
         <h2>Expense List</h2>
         <ul className="list-group">
-          {expenseList.map((expense) => (
+          {expenseList && expenseList.map((expense) => (
             <li key={expense.id} className="list-group-item d-flex justify-content-between align-items-center">
               {expense.description} - {expense.amount}
               <div>
